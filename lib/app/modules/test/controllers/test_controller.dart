@@ -1,23 +1,33 @@
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-class TestController extends GetxController {
-  //TODO: Implement TestController
+import '../../home/models/qoutes_model.dart';
 
-  final count = 0.obs;
+class TestController extends GetxController {
+  late Qoute qoutation = Qoute(author: '', en: '', id: '');
+  RxBool isLoading = false.obs;
+  String image = 'https://picsum.photos/300/500?v=${Random().nextInt(1000)}';
+
   @override
   void onInit() {
+    getData();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Future getData() async {
+    isLoading(true);
+    try {
+      image = 'https://picsum.photos/300/500?v=${Random().nextInt(1000)}';
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+      var response = await Dio()
+          .get('https://programming-quotes-api.herokuapp.com/quotes/random');
+      qoutation = Qoute.fromJson(response.data);
 
-  void increment() => count.value++;
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+    }
+  }
 }

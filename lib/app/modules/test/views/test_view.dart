@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
-import '../controllers/test_controller.dart';
+import 'package:programming_qoutes/app/modules/test/controllers/test_controller.dart';
 
 class TestView extends GetView<TestController> {
   const TestView({Key? key}) : super(key: key);
